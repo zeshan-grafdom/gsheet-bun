@@ -45,21 +45,19 @@ export class GoogleSheetsService {
       console.log("🔧 Initializing Google Sheets service...");
       await this.getSheetsApi();
 
-      // Make a test call to warm up the service
       const dummySheetId = process.env.DUMMY_SHEET_ID;
-      const dummyRange =
-        process.env.DUMMY_RANGE || process.env.DUMMY_SHEET_NAME || "";
+      const dummySheetName = process.env.DUMMY_SHEET_NAME || "";
 
-      if (dummySheetId && dummyRange) {
+      if (dummySheetId && dummySheetName) {
         console.log("📡 Making warmup request...");
-        await this.readValues(dummySheetId, dummyRange, false).catch(() =>
+        await this.readValues(dummySheetId, dummySheetName, false).catch(() =>
           console.warn(
             "⚠️  Warmup read failed for provided sheet/range. Service will lazily initialize on first request."
           )
         );
-      } else if (dummySheetId && !dummyRange) {
+      } else if (dummySheetId && !dummySheetName) {
         console.log(
-          "ℹ️  Skipping warmup values read. Set DUMMY_RANGE (e.g. 'Sheet1!A1:A1') or DUMMY_SHEET_NAME to enable prefetch."
+          "ℹ️  Skipping warmup values read. Set DUMMY_SHEET_NAME to enable prefetch."
         );
       }
 

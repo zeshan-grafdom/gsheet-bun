@@ -15,4 +15,4 @@ const server = serve({
   },
 });
 
-console.log(`Bun server running on http://localhost:${server.port}`);
+console.log(`Bun server running on PORT: ${server.port}`);

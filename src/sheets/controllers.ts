@@ -11,11 +11,6 @@ export async function readSheet(
   spreadsheetId: string,
   searchParams: URLSearchParams
 ) {
-  console.log("readSheet called with:", {
-    spreadsheetId,
-    searchParams: searchParams.toString(),
-  });
-
   try {
     const body = (await req.json().catch(() => ({}))) as Record<string, any>;
     const sheetName = validateSheet(searchParams);
@@ -41,8 +36,6 @@ export async function readSheet(
 
     return response;
   } catch (error: any) {
-    console.log(typeof error, error);
-
     throw error;
   }
 }
@@ -52,10 +45,6 @@ export async function updateSheet(
   spreadsheetId: string,
   searchParams: URLSearchParams
 ) {
-  console.log("updateSheet called with:", {
-    spreadsheetId,
-    searchParams: searchParams.toString(),
-  });
   try {
     const body = (await req.json().catch(() => ({}))) as Record<string, any>;
     const sheetName = validateSheet(searchParams);
@@ -100,10 +89,6 @@ export async function createRow(
   spreadsheetId: string,
   searchParams: URLSearchParams
 ): Promise<Response> {
-  console.log("createRow called with:", {
-    spreadsheetId,
-    searchParams: searchParams.toString(),
-  });
   try {
     const body = (await req.json().catch(() => ({}))) as Record<string, any>;
     const sheetName = validateSheet(searchParams);
@@ -117,7 +102,7 @@ export async function createRow(
 
     const response = {
       sheet: sheetName,
-      appended: result.appended,
+      message: "Row appended",
     };
 
     return jsonResponse(response, { status: 201 });
